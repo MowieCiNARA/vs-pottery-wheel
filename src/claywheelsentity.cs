@@ -642,7 +642,7 @@ namespace claywheel.src
                 CheckIfFinished(player);
                 RegenWorkItemMesh();
 
-                ((ICoreServerAPI)Api).Network.SendBlockEntityPacket((IServerPlayer)player, Pos.X, Pos.Y, Pos.Z, (int)EnumClayWheelPacket.ClayAdded);
+                ((ICoreServerAPI)Api).Network.SendBlockEntityPacket((IServerPlayer)player, Pos, (int)EnumClayWheelPacket.ClayAdded);
             }
         }
 
@@ -683,11 +683,11 @@ namespace claywheel.src
                     capi.Logger.VerboseDebug("Select clay from recipe {0}, have {1} recipes.", selectedIndex, recipes.Count);
 
                     selectedRecipeId = recipes[selectedIndex].RecipeId;
-                    capi.Network.SendBlockEntityPacket(pos.X, pos.Y, pos.Z, (int)EnumClayWheelPacket.SelectRecipe, SerializerUtil.Serialize(recipes[selectedIndex].RecipeId));
+                    capi.Network.SendBlockEntityPacket(pos, (int)EnumClayWheelPacket.SelectRecipe, SerializerUtil.Serialize(recipes[selectedIndex].RecipeId));
                 },
                 () =>
                 {
-                    capi.Network.SendBlockEntityPacket(pos.X, pos.Y, pos.Z, (int)EnumClayWheelPacket.CancelSelect);
+                    capi.Network.SendBlockEntityPacket(pos, (int)EnumClayWheelPacket.CancelSelect);
                 },
                 pos,
                 Api as ICoreClientAPI
